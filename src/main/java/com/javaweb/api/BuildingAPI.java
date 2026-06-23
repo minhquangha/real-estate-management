@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -15,8 +16,10 @@ public class BuildingAPI {
     @Autowired
     private BuildingService buildingService;
     @GetMapping("/api/building/")
-    public List<BuildingDTO> getBuilding(@RequestParam(name="name",required = false) String name,@RequestParam(name = "district_id",required = false) Long districtId){
-        List<BuildingDTO> buildingDTOS = buildingService.findAll(name,districtId);
+    public List<BuildingDTO> getBuilding(@RequestParam  Map<String,Object> params,
+                                         @RequestParam(name="typeCode",required = false) List<String> typeCode){
+
+        List<BuildingDTO> buildingDTOS = buildingService.findAll(params,typeCode);
         return buildingDTOS;
     }
 
